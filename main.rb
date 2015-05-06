@@ -11,7 +11,8 @@ configure do
   puts "===== Process is starting with pid: #{Process.pid}. Run stop.rb to gracefully stop. ====="
   puts "===== Environment is <<#{Sinatra::Base.environment}>> ====="
   File.open('pid.txt', 'w') {|f| f.write Process.pid }
-  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
+  #DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
+  DataMapper::setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/development.db")
   enable :sessions
   set :username, 'frank'
   set :password, 'sinatra'
